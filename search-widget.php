@@ -20,6 +20,7 @@ $child_age = get_field('child_age');
 			font-size: 11px;
 			color: black;
 		}
+
 		.container-widget {
 			display: flex;
 			padding: 39px;
@@ -198,11 +199,11 @@ $child_age = get_field('child_age');
 		}
 
 		.daterangepicker {
-            top: 357.703px !important;
-            left: auto !important;
-            right: 425.984px !important;
-            display: block;
-            border-radius: 10px;
+			top: 357.703px !important;
+			left: auto !important;
+			right: 425.984px !important;
+			display: block;
+			border-radius: 10px;
 		}
 
 		.daterangepicker select.monthselect select.yearselect {
@@ -248,6 +249,7 @@ $child_age = get_field('child_age');
 		.daterangepicker select.yearselect {
 			background-color: white;
 		}
+
 		.mode-toggle {
 			margin-top: 20px;
 			/* gap: 10px; */
@@ -257,7 +259,7 @@ $child_age = get_field('child_age');
 			padding: 10px 20px;
 			border: 0;
 			background-color: rgba(255, 255, 255, 0.87);
-			color:rgb(80, 145, 153);
+			color: rgb(80, 145, 153);
 			cursor: pointer;
 		}
 
@@ -273,32 +275,34 @@ $child_age = get_field('child_age');
 
 		.mode-button.selected {
 			background-color: rgb(80, 145, 153);
-            color: white;
+			color: white;
 		}
-        .daterangepicker.ltr.auto-apply.single.opensleft.show-calendar{
-            right:892.984px !important;
-            
-        }
-        .error-container {
-            display: none;
-            background: white;
-            color: #509199;
-            padding: 10px;
-            border-radius: 34px;
-            margin-top: 10px;
-            text-align: center;
-            
-        }
-        .experience-text{
-            background-color: rgba(255, 255, 255, 0.65);
-            color:rgba(0, 0, 0, 0.5);
-            text-align: center;
-            padding: 10px;
-            border-radius: 34px;
-            margin-top: 10px;
-            width: 132%;
-        }
 
+		.daterangepicker.ltr.auto-apply.single.opensleft.show-calendar {
+			right: 892.984px !important;
+
+		}
+
+		.error-container {
+			display: none;
+			background: white;
+			color: #509199;
+			padding: 10px;
+			border-radius: 34px;
+			margin-top: 10px;
+			text-align: center;
+
+		}
+
+		.experience-text {
+			background-color: rgba(255, 255, 255, 0.65);
+			color: rgba(0, 0, 0, 0.5);
+			text-align: center;
+			padding: 10px;
+			border-radius: 34px;
+			margin-top: 10px;
+			width: 132%;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
@@ -309,7 +313,7 @@ $child_age = get_field('child_age');
 		<button id="experiencesMode" class="mode-button" onclick="switchMode('EXPERIENCES')">EXPERIENCES</button>
 	</div>
 
-	<div class="container-widget" >
+	<div class="container-widget">
 		<div class="step">
 			<div class="date">
 				<span class="title"> Choose your Holiday </span> <br>
@@ -369,10 +373,10 @@ $child_age = get_field('child_age');
 		</div>
 		<input class="search-button" type="button" value="SEARCH">
 	</div>
-    <div id="errorContainer" class="error-container"></div>
-    <div id="experienceText" class="experience-text" style="display: none;">
-    Select the corresponding event date to start booking your experience.
-</div>
+	<div id="errorContainer" class="error-container"></div>
+	<div id="experienceText" class="experience-text" style="display: none;">
+		Select the corresponding event date to start booking your experience.
+	</div>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -410,7 +414,7 @@ $child_age = get_field('child_age');
 			window.open(`${phpScriptUrl}?${queryString}`, '_blank');
 		});
 
-		
+
 		// Function to calculate total adults from all rooms
 		function getTotalAdults() {
 			let totalAdults = 0;
@@ -463,11 +467,13 @@ $child_age = get_field('child_age');
 			const totalChildren = parseInt(document.getElementById('childCount1').innerText);
 			const roomMembers = totalAdults + totalChildren;
 
-			if (roomCount < 9 && roomMembers <= 4) {
-				roomCount++;
-				totalMembers += roomMembers;
+			const existingRooms = document.querySelectorAll('.room');
+    		const newRoomNumber = existingRooms.length + 1;
 
-				const newRoomNumber = roomCount;
+			if (roomCount < 9 && roomMembers <= 4) {
+				roomCount = newRoomNumber;
+        		totalMembers += roomMembers;
+
 				const container = document.querySelector('.dropdown-content');
 				const newRoom = document.createElement("div");
 				newRoom.classList.add("room");
@@ -551,80 +557,81 @@ $child_age = get_field('child_age');
 				alert("Invalid room configuration. Please check the maximum limits.");
 			}
 		}
-    function increment(type, roomNumber) {
-    const adultCount = parseInt(document.getElementById(`adultCount${roomNumber}`).innerText);
-    const childCount = parseInt(document.getElementById(`childCount${roomNumber}`).innerText);
-    const total = adultCount + childCount;
 
-    // Adjust maximum number of guests based on the mode
-    const maxGuests = mode === 'EXPERIENCES' ? 70 : 4;
-    const maxChildrenPerRoom = mode === 'EXPERIENCES' ? 70 : 3; // Assuming in EXPERIENCES mode we can also have more children, adjust as needed
+		function increment(type, roomNumber) {
+			const adultCount = parseInt(document.getElementById(`adultCount${roomNumber}`).innerText);
+			const childCount = parseInt(document.getElementById(`childCount${roomNumber}`).innerText);
+			const total = adultCount + childCount;
 
-    if (type === 'child') {
-        // Check conditions based on selected mode
-        if (childCount < maxChildrenPerRoom && total < maxGuests) {
-            document.getElementById(`childCount${roomNumber}`).innerText = childCount + 1;
-            addChildAgeDropdown(roomNumber, childCount + 1);
-        } else {
-            displayErrorMessage(`Maximum of ${maxChildrenPerRoom} children or total ${maxGuests} guests allowed per room.`);
-        }
-    } else if (type === 'adult') {
-        // Allow adding an adult only if total number of people is less than maxGuests
-        if (total < maxGuests) {
-            document.getElementById(`adultCount${roomNumber}`).innerText = adultCount + 1;
-        } else {
-            displayErrorMessage(`Maximum of ${maxGuests} guests allowed per room.`);
-        }
-    }
+			// Adjust maximum number of guests based on the mode
+			const maxGuests = mode === 'EXPERIENCES' ? 70 : 4;
+			const maxChildrenPerRoom = mode === 'EXPERIENCES' ? 70 : 3; // Assuming in EXPERIENCES mode we can also have more children, adjust as needed
 
-    updateTotalCount(); // Update the total count displayed to the user
-}
+			if (type === 'child') {
+				// Check conditions based on selected mode
+				if (childCount < maxChildrenPerRoom && total < maxGuests) {
+					document.getElementById(`childCount${roomNumber}`).innerText = childCount + 1;
+					addChildAgeDropdown(roomNumber, childCount + 1);
+				} else {
+					displayErrorMessage(`Maximum of ${maxChildrenPerRoom} children or total ${maxGuests} guests allowed per room.`);
+				}
+			} else if (type === 'adult') {
+				// Allow adding an adult only if total number of people is less than maxGuests
+				if (total < maxGuests) {
+					document.getElementById(`adultCount${roomNumber}`).innerText = adultCount + 1;
+				} else {
+					displayErrorMessage(`Maximum of ${maxGuests} guests allowed per room.`);
+				}
+			}
 
-function displayErrorMessage(message) {
-    const errorContainer = document.getElementById("errorContainer");
-    if (!errorContainer) {
-        const container = document.createElement("div");
-        container.id = "errorContainer";
-        container.className = "error-container";
-        container.textContent = message;
-        container.style.color = "#509199";
-        container.style.display = "block"; // Show the container
-        document.getElementById("container-widget").appendChild(container);
-    } else {
-        errorContainer.textContent = message;
-        errorContainer.style.display = "block"; // Show the container
-    }
-}
+			updateTotalCount(); // Update the total count displayed to the user
+		}
+
+		function displayErrorMessage(message) {
+			const errorContainer = document.getElementById("errorContainer");
+			if (!errorContainer) {
+				const container = document.createElement("div");
+				container.id = "errorContainer";
+				container.className = "error-container";
+				container.textContent = message;
+				container.style.color = "#509199";
+				container.style.display = "block"; // Show the container
+				document.getElementById("container-widget").appendChild(container);
+			} else {
+				errorContainer.textContent = message;
+				errorContainer.style.display = "block"; // Show the container
+			}
+		}
 
 
-function decrement(type, roomNumber) {
-    const adultCount = parseInt(document.getElementById(`adultCount${roomNumber}`).innerText);
-    const childCount = parseInt(document.getElementById(`childCount${roomNumber}`).innerText);
+		function decrement(type, roomNumber) {
+			const adultCount = parseInt(document.getElementById(`adultCount${roomNumber}`).innerText);
+			const childCount = parseInt(document.getElementById(`childCount${roomNumber}`).innerText);
 
-    // Decrement the count based on the type
-    if (type === 'adult') {
-        if (adultCount > 1) {
-            document.getElementById(`adultCount${roomNumber}`).innerText = adultCount - 1;
-        }
-    } else if (type === 'child') {
-        if (childCount > 0) {
-            document.getElementById(`childCount${roomNumber}`).innerText = childCount - 1;
-            // Remove child age dropdown if present
-            removeChildAgeDropdown(roomNumber, childCount - 1);
-        }
-    }
+			// Decrement the count based on the type
+			if (type === 'adult') {
+				if (adultCount > 1) {
+					document.getElementById(`adultCount${roomNumber}`).innerText = adultCount - 1;
+				}
+			} else if (type === 'child') {
+				if (childCount > 0) {
+					document.getElementById(`childCount${roomNumber}`).innerText = childCount - 1;
+					// Remove child age dropdown if present
+					removeChildAgeDropdown(roomNumber, childCount - 1);
+				}
+			}
 
-    // Hide the error message
-    hideErrorMessage();
-    updateTotalCount(); // Update the total count displayed to the user
-}
+			// Hide the error message
+			hideErrorMessage();
+			updateTotalCount(); // Update the total count displayed to the user
+		}
 
-function hideErrorMessage() {
-    const errorContainer = document.getElementById("errorContainer");
-    if (errorContainer) {
-        errorContainer.style.display = "none"; // Hide the error container
-    }
-}
+		function hideErrorMessage() {
+			const errorContainer = document.getElementById("errorContainer");
+			if (errorContainer) {
+				errorContainer.style.display = "none"; // Hide the error container
+			}
+		}
 
 
 		function addChildAgeDropdown(roomNumber, childNumber) {
@@ -724,7 +731,7 @@ function hideErrorMessage() {
 				document.getElementById('arLink').classList.add('selected');
 			}
 		}
-		
+
 		$(function() {
 			// Function to update the daterangepicker based on the mode
 			function updateDatepickerMode() {
@@ -772,7 +779,7 @@ function hideErrorMessage() {
 
 				// Remove any existing data pickers to avoid conflicts
 				$('input[name="datefilter"]').daterangepicker('destroy');
-				
+
 				// Initialize the date range picker with new settings
 				$('input[name="datefilter"]').daterangepicker(pickerOptions);
 
@@ -806,25 +813,25 @@ function hideErrorMessage() {
 
 				var dateInput = document.getElementById('date');
 				dateInput.value = '';
-				
+
 				// Find all adult and child count inputs and reset their values
 				var adultCounts = document.querySelectorAll('[id^="adultCount"]');
 				var childCounts = document.querySelectorAll('[id^="childCount"]');
-				
+
 				// Reset adult counts to the default value, typically 1 for adults
 				adultCounts.forEach(function(adultCount) {
-					adultCount.innerText = '1';  // Assuming the default value is 1
+					adultCount.innerText = '1'; // Assuming the default value is 1
 				});
-				
+
 				// Reset child counts to 0 as default
 				childCounts.forEach(function(childCount) {
-					childCount.innerText = '0';  // Assuming the default value is 0
+					childCount.innerText = '0'; // Assuming the default value is 0
 				});
-				
+
 				// Reset all child age selections to the placeholder option
 				var childAgeSelects = document.querySelectorAll('.age_dropdown select');
 				childAgeSelects.forEach(function(select) {
-					select.selectedIndex = 0;  // Set to the first option, typically the placeholder
+					select.selectedIndex = 0; // Set to the first option, typically the placeholder
 				});
 
 				// remove the age dropdowns
@@ -839,30 +846,30 @@ function hideErrorMessage() {
 				});
 
 				var container = document.querySelector('.container-widget');
-                var experienceText = document.querySelector('.experience-text');
+				var experienceText = document.querySelector('.experience-text');
 
-                // Reset form values and UI elements based on the new mode
-                if (mode === 'VACATION') {
-                    document.getElementById('vacationMode').classList.add('selected');
-                    $('.step:first').show(); // Show "Choose your Holiday"
-                    $('.add-room-btn').show(); // Show "Add Room" button
-                    var dateInput = document.getElementById('date');
-                    dateInput.placeholder = 'CHECK-IN - CHECK-OUT';
-                    container.style.justifyContent = 'center';
-                    container.style.width = '100%';
-                    experienceText.style.display = 'none'; // Hide experience text
-                } else if (mode === 'EXPERIENCES') {
-                    document.getElementById('experiencesMode').classList.add('selected');
-                    $('.step:first').hide(); // Hide "Choose your Holiday"
-                    $('.add-room-btn').hide(); // Hide "Add Room" button
-                    var guestRoomInput = document.getElementById('guestRoom');
-                    var dateInput = document.getElementById('date');
-                    guestRoomInput.value = '';  // Set value to empty to show placeholder
-                    container.style.justifyContent = 'space-evenly';
-                    container.style.width = '132%';
-                    dateInput.placeholder = 'SELECT DATE';
-                    experienceText.style.display = 'block'; // Show experience text
-                }
+				// Reset form values and UI elements based on the new mode
+				if (mode === 'VACATION') {
+					document.getElementById('vacationMode').classList.add('selected');
+					$('.step:first').show(); // Show "Choose your Holiday"
+					$('.add-room-btn').show(); // Show "Add Room" button
+					var dateInput = document.getElementById('date');
+					dateInput.placeholder = 'CHECK-IN - CHECK-OUT';
+					container.style.justifyContent = 'center';
+					container.style.width = '100%';
+					experienceText.style.display = 'none'; // Hide experience text
+				} else if (mode === 'EXPERIENCES') {
+					document.getElementById('experiencesMode').classList.add('selected');
+					$('.step:first').hide(); // Hide "Choose your Holiday"
+					$('.add-room-btn').hide(); // Hide "Add Room" button
+					var guestRoomInput = document.getElementById('guestRoom');
+					var dateInput = document.getElementById('date');
+					guestRoomInput.value = ''; // Set value to empty to show placeholder
+					container.style.justifyContent = 'space-evenly';
+					container.style.width = '132%';
+					dateInput.placeholder = 'SELECT DATE';
+					experienceText.style.display = 'block'; // Show experience text
+				}
 
 				// Close the dropdown if it's open
 				$('.dropdown').removeClass('active');
@@ -871,19 +878,23 @@ function hideErrorMessage() {
 			}
 
 			// Assuming you have a way to switch modes, e.g., buttons
-			$('#vacationMode').click(function() { switchMode('VACATION'); });
-			$('#experiencesMode').click(function() { switchMode('EXPERIENCES'); });
+			$('#vacationMode').click(function() {
+				switchMode('VACATION');
+			});
+			$('#experiencesMode').click(function() {
+				switchMode('EXPERIENCES');
+			});
 		});
-        // JavaScript to handle navigation between steps
-    let currentStep = 0;
-    const steps = document.querySelectorAll('.step');
+		// JavaScript to handle navigation between steps
+		let currentStep = 0;
+		const steps = document.querySelectorAll('.step');
 
-    function nextStep() {
-        steps[currentStep].classList.remove('active');
-        currentStep = (currentStep + 1) % steps.length;
-        steps[currentStep].classList.add('active');
-    }
-	
+		function nextStep() {
+			steps[currentStep].classList.remove('active');
+			currentStep = (currentStep + 1) % steps.length;
+			steps[currentStep].classList.add('active');
+		}
 	</script>
 </body>
+
 </html>
