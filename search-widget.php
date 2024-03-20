@@ -847,6 +847,15 @@ $child_age = get_field('child_age');
 
 				var container = document.querySelector('.container-widget');
 				var experienceText = document.querySelector('.experience-text');
+				var guestRoomInput = document.getElementById('guestRoom');
+
+				// Remove all rooms except for the first one
+				const allRooms = document.querySelectorAll('.room');
+				allRooms.forEach((room, index) => {
+					if (room.id !== 'room1') {
+						room.remove();
+					}
+				});
 
 				// Reset form values and UI elements based on the new mode
 				if (mode === 'VACATION') {
@@ -862,7 +871,6 @@ $child_age = get_field('child_age');
 					document.getElementById('experiencesMode').classList.add('selected');
 					$('.step:first').hide(); // Hide "Choose your Holiday"
 					$('.add-room-btn').hide(); // Hide "Add Room" button
-					var guestRoomInput = document.getElementById('guestRoom');
 					var dateInput = document.getElementById('date');
 					guestRoomInput.value = ''; // Set value to empty to show placeholder
 					container.style.justifyContent = 'space-evenly';
@@ -896,5 +904,4 @@ $child_age = get_field('child_age');
 		}
 	</script>
 </body>
-
 </html>
