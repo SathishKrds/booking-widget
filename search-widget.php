@@ -616,15 +616,16 @@ $child_age = get_field('child_age');
 			} else if (type === 'child') {
 				if (childCount > 0) {
 					document.getElementById(`childCount${roomNumber}`).innerText = childCount - 1;
-					// Remove child age dropdown if present
-					removeChildAgeDropdown(roomNumber, childCount - 1);
+					// Remove the last child age dropdown corresponding to the decremented child
+					removeChildAgeDropdown(roomNumber, childCount);
 				}
 			}
 
-			// Hide the error message
+			// Hide the error message if it exists
 			hideErrorMessage();
 			updateTotalCount(); // Update the total count displayed to the user
 		}
+
 
 		function hideErrorMessage() {
 			const errorContainer = document.getElementById("errorContainer");
